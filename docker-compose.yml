@@ -1,0 +1,17 @@
+version: '3.6'
+
+services:
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile-php
+        volumes:
+            - ./app:/app
+
+    mysql:
+        image: mysql:5.7
+        ports:
+            - '3306:3306'
+        environment:
+            - MYSQL_ROOT_PASSWORD=t4stp4ssw0rd
+            - MYSQL_DATABASE=app

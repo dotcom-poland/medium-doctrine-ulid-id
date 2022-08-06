@@ -1,0 +1,25 @@
+FROM php:8.0-cli
+
+WORKDIR /app
+
+# Required system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    # Composer requirements
+    git curl unzip \
+    # Required by zip extension
+    libzip-dev \
+    # Ping command
+    iputils-ping
+
+# PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql zip
+
+# The Composer
+RUN curl -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar \
+    && chmod +x /usr/local/bin/composer
+
+# Clean up image
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/src
+
+# Run always
+CMD ["ping", "-i10", "localhost"]

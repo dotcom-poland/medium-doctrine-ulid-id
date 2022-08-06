@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Infrastructure/Doctrine/Entity/'
+            - '../src/Infrastructure/Doctrine/Type/'
+            - '../src/Kernel.php'
